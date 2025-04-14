@@ -3,7 +3,7 @@ const config = {
   collectCoverage: true,
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: "coverage",
-  coverageProvider: "v8",
+  coverageProvider: "babel",
   transform: {
     '.+\\.ts$': 'ts-jest'
   },
