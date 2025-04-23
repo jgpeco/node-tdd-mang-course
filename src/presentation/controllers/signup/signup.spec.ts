@@ -1,10 +1,15 @@
 import { SignUpController } from './signup'
 import { MissingParamError, InvalidParamError, ServerError } from '../../errors'
-import { type EmailValidator, type AccountModel, type AddAccount, type AddAccountModel } from './signup-protocols'
+import {
+  type EmailValidator,
+  type AccountModel,
+  type AddAccount,
+  type AddAccountModel
+} from './signup-protocols'
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
-    isValid (email: string): boolean {
+    isValid(email: string): boolean {
       return true // um stub fornece o resultado que queremos em uma função
     }
   }
@@ -14,7 +19,7 @@ const makeEmailValidator = (): EmailValidator => {
 
 const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
-    async add (account: AddAccountModel): Promise<AccountModel> {
+    async add(account: AddAccountModel): Promise<AccountModel> {
       const fakeAccount = {
         id: 'valid_id',
         name: 'valid_name',
@@ -22,7 +27,9 @@ const makeAddAccount = (): AddAccount => {
         password: 'valid_password'
       }
 
-      return await new Promise(resolve => { resolve(fakeAccount) })
+      return await new Promise((resolve) => {
+        resolve(fakeAccount)
+      })
     }
   }
 
@@ -203,7 +210,9 @@ describe('SignUp Controller', () => {
     const { sut, addAccountStub } = makeSut()
 
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(async () => {
-      return await new Promise((resolve, reject) => { reject(new Error()) })
+      return await new Promise((resolve, reject) => {
+        reject(new Error())
+      })
     })
 
     const httpRequest = {
